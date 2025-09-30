@@ -4,9 +4,9 @@
 #SBATCH --cpus-per-task=2
 #SBATCH --gpus=2
 #SBATCH --partition=gpu_a100
-#SBATCH --time=00:05:00
-#SBATCH --mem=4G  #gpu每个节点可用480GB内存
-#SBATCH --job-name=test
+#SBATCH --time=192:05:00
+#SBATCH --mem=84G  #gpu每个节点可用480GB内存
+#SBATCH --job-name=qwen
 #SBATCH -o ./log/a100_test.out #指定输出文件
 
 module load CUDA/12.4.0
