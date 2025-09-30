@@ -17,7 +17,7 @@ source /home/npu/miniconda3/bin/activate qwen
 
 MASTER_ADDR="127.0.0.1"                     # [Required] Master node IP for multi-GPU training
 MASTER_PORT=$(shuf -i 20000-29999 -n 1)     # Random port to avoid conflicts
-NPROC_PER_NODE=$(nvidia-smi --list-gpus | wc -l)  # Automatically detects available GPUs
+NPROC_PER_NODE=2 # Automatically detects available GPUs
 
 MODEL_PATH="Qwen/Qwen2.5-VL-3B-Instruct"  # [ModelArguments] Pretrained model path
 OUTPUT_DIR="./checkpoints"                   # Directory for saving checkpoints
