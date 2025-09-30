@@ -4,25 +4,23 @@
 #SBATCH --cpus-per-task=2
 #SBATCH --gpus=2
 #SBATCH --partition=gpu_a100
-#SBATCH --time=192:05:00
-#SBATCH --mem=84G  #gpu每个节点可用480GB内存
+#SBATCH --time=96:00:00  # 调整时间限制
+#SBATCH --mem=84G        # 可调整根据节点资源
+#SBATCH --exclusive      # 如果需要独占节点，取消注释
 #SBATCH --job-name=qwen
-#SBATCH -o ./log/a100_test.out #指定输出文件
+#SBATCH -o ./log/a100_test.out # 指定输出文件
 
 module load CUDA/12.4.0
 source /home/npu/miniconda3/bin/activate qwen
 
-
-
-
 MASTER_ADDR="127.0.0.1"                     # [Required] Master node IP for multi-GPU training
 MASTER_PORT=$(shuf -i 20000-29999 -n 1)     # Random port to avoid conflicts
-NPROC_PER_NODE=2 # Automatically detects available GPUs
+NPROC_PER_NODE=2                            # Automatically detects available GPUs
 
-MODEL_PATH="Qwen/Qwen2.5-VL-3B-Instruct"  # [ModelArguments] Pretrained model path
-OUTPUT_DIR="./checkpoints"                   # Directory for saving checkpoints
-CACHE_DIR="./cache"                          # [TrainingArguments] Cache directory for models
-DATASETS="samm_data"                  # [DataArguments] Dataset with sampling rate
+MODEL_PATH="Qwen/Qwen2.5-VL-3B-Instruct"    # [ModelArguments] Pretrained model path
+OUTPUT_DIR="./checkpoints"                  # Directory for saving checkpoints
+CACHE_DIR="./cache"                         # [TrainingArguments] Cache directory for models
+DATASETS="samm_data"                        # [DataArguments] Dataset with sampling rate
 
 torchrun \
     --nproc_per_node=$NPROC_PER_NODE \
